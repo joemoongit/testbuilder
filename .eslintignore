@@ -1,0 +1,7 @@
+.eslint*
+**/node_modules
+**/bower_components
+**/lib
+**/jasmine
+**/*.min.js
+**/runner.js
