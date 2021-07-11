@@ -106,7 +106,7 @@ var test = function(card) {
       return res;
     };
     var generateTest = function(p, n) {
-      return {prefix: p, number: n, card: card.name};
+      return { prefix: p, number: n, card: card.name };
     };
 
     var tests = [];
