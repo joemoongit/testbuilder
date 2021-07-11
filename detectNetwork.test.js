@@ -143,12 +143,19 @@ describe('Discover', function() {
     {prefix: '6011', number: '6011594875624584', card: 'Discover'},
     {prefix: '6011', number: '6011594875624584123', card: 'Discover'},
     {prefix: '644', number: '6441594875624584', card: 'Discover'},
+    {prefix: '644', number: '6441594875624584123', card: 'Discover'},
+    {prefix: '645', number: '6451594875624584', card: 'Discover'},
     {prefix: '645', number: '6451594875624584123', card: 'Discover'},
     {prefix: '646', number: '6461594875624584', card: 'Discover'},
+    {prefix: '646', number: '6461594875624584123', card: 'Discover'},
+    {prefix: '647', number: '6471594875624584', card: 'Discover'},
     {prefix: '647', number: '6471594875624584123', card: 'Discover'},
     {prefix: '648', number: '6481594875624584', card: 'Discover'},
+    {prefix: '648', number: '6481594875624584123', card: 'Discover'},
+    {prefix: '649', number: '6491594875624584', card: 'Discover'},
     {prefix: '649', number: '6491594875624584123', card: 'Discover'},
-    {prefix: '65', number: '6541594875624584', card: 'Discover'}
+    {prefix: '65', number: '6541594875624584', card: 'Discover'},
+    {prefix: '65', number: '6541594875624584123', card: 'Discover'}
   ];
 
   tests.forEach(function(test) { helper(test.prefix, test.number, test.card); });
