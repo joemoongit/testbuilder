@@ -11,6 +11,18 @@
 
 var detectNetwork = function(cardNumber) {
 
+  var sequenceGenerator = function(number, endNumber) {
+    var numberCount = endNumber - number + 1;
+    return Array.from(Array(numberCount).keys()).map(
+      function(x) { return String(Number(x) + number); }
+    );
+  };
+
+  var mergeArrays = function(array1, array2) {
+    array2.forEach(function(num) { array1.push(num); });
+    return array1;
+  };
+
   var cards = [
     {name: 'Diner\'s Club', prefix: ['38', '39'], lengths: [14]},
     {name: 'American Express', prefix: ['34', '37'], lengths: [15]},
@@ -18,29 +30,56 @@ var detectNetwork = function(cardNumber) {
     {name: 'MasterCard', prefix: ['51', '52', '53', '54', '55'], lengths: [16]},
     {
       name: 'Discover',
-      prefix: ['6011', '644', '645', '646', '647', '648', '649', '65'],
+      prefix: mergeArrays(sequenceGenerator(644, 649), ['6011', '65']),
       lengths: [16, 19]
     },
     {
       name: 'Maestro',
       prefix: ['5018', '5020', '5038', '6304'],
       lengths: [12, 13, 14, 15, 16, 17, 18, 19]
+    },
+    {
+      name: 'China UnionPay',
+      prefix:
+        mergeArrays(
+          sequenceGenerator(622126, 622925),
+          mergeArrays(
+            sequenceGenerator(624, 626),
+            sequenceGenerator(6282, 6288)
+          )
+        ),
+      lengths: [16, 17, 18, 19]
+    },
+    {
+      name: 'Switch',
+      prefix: ['4903', '4905', '4911', '4936', '564182', '633110', '6333', '6759'],
+      lengths: [16, 18, 19]
     }
   ];
 
+  var lastPrefix = '';
+  var name = '';
   var res = function(cards) {
     for (var i = 0; i < cards.length; i++) {
       var card = cards[i];
       for (var j = 0; j < card.prefix.length; j++) {
         var pre = card.prefix[j];
         if ((pre === cardNumber.slice(0, pre.length)) && card.lengths.includes(cardNumber.length)) {
-          return card.name;
+          if (lastPrefix.length > 1) {
+            if (pre.length > lastPrefix.length) {
+              lastPrefix = pre;
+              name = card.name;
+            }
+          } else {
+            lastPrefix = pre;
+            name = card.name;
+          }
         }
       }
     }
   }(cards);
 
-  return res;
+  return name;
 };
 
 
