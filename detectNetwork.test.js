@@ -99,16 +99,16 @@ describe('MasterCard', function() {
   // Expect syntax is one way to do this, but there are others.
   // If you want to know more, check out the documentation.
   //   http://chaijs.com/api/bdd/
-  var expect = chai.expect;
+  var should = chai.should();
 
   it('has a prefix of 51 and a length of 16', function() {
-    expect(detectNetwork('5112345678901234')).to.equal('MasterCard');
+    detectNetwork('5112345678901234').should.equal('MasterCard');
   });
   it('has a prefix of 52 and a length of 16', function() {
-    expect(detectNetwork('5212345678901234')).to.equal('MasterCard');
+    detectNetwork('5212345678901234').should.equal('MasterCard');
   });
   it('has a prefix of 53 and a length of 16', function() {
-    expect(detectNetwork('5312345678901234')).to.equal('MasterCard');
+    detectNetwork('5312345678901234').should.equal('MasterCard');
   });
 
   // You can also use should instead of expect, which changes the style
@@ -131,11 +131,11 @@ describe('MasterCard', function() {
 describe('Discover', function() {
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
-  var assert = chai.assert;
+  var should = chai.should();
 
   var helper = function(prefix, number, card) {
     return it('has a prefix of ' + prefix + ' and a length of ' + number.length, function() {
-      assert(detectNetwork(number) === card);
+      detectNetwork(number).should.equal(card);
     });
   };
 
@@ -166,11 +166,11 @@ describe('Discover', function() {
 
 describe('Maestro', function() {
   // Write full test coverage for the Maestro card
-  var assert = chai.assert;
+  var should = chai.should();
 
   var helper = function(prefix, number, card) {
     return it('has a prefix of ' + prefix + ' and a length of ' + number.length, function() {
-      assert(detectNetwork(number) === card);
+      detectNetwork(number).should.equal(card);
     });
   };
 
