@@ -139,24 +139,27 @@ describe('Discover', function() {
     });
   };
 
-  var tests = [
-    {prefix: '6011', number: '6011594875624584', card: 'Discover'},
-    {prefix: '6011', number: '6011594875624584123', card: 'Discover'},
-    {prefix: '644', number: '6441594875624584', card: 'Discover'},
-    {prefix: '644', number: '6441594875624584123', card: 'Discover'},
-    {prefix: '645', number: '6451594875624584', card: 'Discover'},
-    {prefix: '645', number: '6451594875624584123', card: 'Discover'},
-    {prefix: '646', number: '6461594875624584', card: 'Discover'},
-    {prefix: '646', number: '6461594875624584123', card: 'Discover'},
-    {prefix: '647', number: '6471594875624584', card: 'Discover'},
-    {prefix: '647', number: '6471594875624584123', card: 'Discover'},
-    {prefix: '648', number: '6481594875624584', card: 'Discover'},
-    {prefix: '648', number: '6481594875624584123', card: 'Discover'},
-    {prefix: '649', number: '6491594875624584', card: 'Discover'},
-    {prefix: '649', number: '6491594875624584123', card: 'Discover'},
-    {prefix: '65', number: '6541594875624584', card: 'Discover'},
-    {prefix: '65', number: '6541594875624584123', card: 'Discover'}
-  ];
+  var prefixes = ['6011', '644', '645', '646', '647', '648', '649', '65'];
+  var generateNumber = function(prefix, length) {
+    var res = prefix;
+    if (res.length !== length) {
+      var numDigits = Math.pow(10, length - res.length - 1);
+      res += String(Math.floor(numDigits + Math.random() * (9 * numDigits)));
+    }
+    return res;
+  };
+  var generateTest = function(p, n) {
+    return {prefix: p, number: n, card: 'Discover'};
+  };
+
+  var tests = [];
+  var addTests = function(prefixes) {
+    for (var i = 0; i < prefixes.length; i++) {
+      var prefix = prefixes[i];
+      tests.push(generateTest(prefix, generateNumber(prefix, 16)));
+      tests.push(generateTest(prefix, generateNumber(prefix, 19)));
+    }
+  }(prefixes);
 
   tests.forEach(function(test) { helper(test.prefix, test.number, test.card); });
 });
@@ -171,16 +174,28 @@ describe('Maestro', function() {
     });
   };
 
-  var tests = [
-    {prefix: '5018', number: '501875624584', card: 'Maestro'},
-    {prefix: '5020', number: '5020756245841', card: 'Maestro'},
-    {prefix: '5038', number: '50387562458412', card: 'Maestro'},
-    {prefix: '6304', number: '630475624584123', card: 'Maestro'},
-    {prefix: '5018', number: '5018756245841234', card: 'Maestro'},
-    {prefix: '5020', number: '50207562458412345', card: 'Maestro'},
-    {prefix: '5038', number: '503875624584123456', card: 'Maestro'},
-    {prefix: '6304', number: '6304756245841234567', card: 'Maestro'}
-  ];
+  var prefixes = ['5018', '5020', '5038', '6304'];
+  var generateNumber = function(prefix, length) {
+    var res = prefix;
+    if (res.length !== length) {
+      var numDigits = Math.pow(10, length - res.length - 1);
+      res += String(Math.floor(numDigits + Math.random() * (9 * numDigits)));
+    }
+    return res;
+  };
+  var generateTest = function(p, n) {
+    return {prefix: p, number: n, card: 'Maestro'};
+  };
+
+  var tests = [];
+  var addTests = function(prefixes) {
+    for (var i = 0; i < prefixes.length; i++) {
+      var prefix = prefixes[i];
+      for (var numLength = 12; numLength <= 19; numLength++) {
+        tests.push(generateTest(prefix, generateNumber(prefix, numLength)));
+      }
+    }
+  }(prefixes);
 
   tests.forEach(function(test) { helper(test.prefix, test.number, test.card); });
 });
