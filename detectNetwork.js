@@ -28,19 +28,17 @@ var detectNetwork = function(cardNumber) {
     }
   ];
 
-  var res = '';
-
-  cards.forEach(
-    function(card) {
-      card.prefix.forEach(
-        function(pre) {
-          if (pre === cardNumber.slice(0, pre.length)) {
-            res = card.name;
-          }
+  var res = function(cards) {
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      for (var j = 0; j < card.prefix.length; j++) {
+        var pre = card.prefix[j];
+        if (pre === cardNumber.slice(0, pre.length)) {
+          return card.name;
         }
-      );
+      }
     }
-  );
+  }(cards);
 
   return res;
 };
