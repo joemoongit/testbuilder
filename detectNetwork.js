@@ -33,7 +33,7 @@ var detectNetwork = function(cardNumber) {
       var card = cards[i];
       for (var j = 0; j < card.prefix.length; j++) {
         var pre = card.prefix[j];
-        if (pre === cardNumber.slice(0, pre.length)) {
+        if ((pre === cardNumber.slice(0, pre.length)) && card.lengths.includes(cardNumber.length)) {
           return card.name;
         }
       }
