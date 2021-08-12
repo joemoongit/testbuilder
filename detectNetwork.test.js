@@ -18,6 +18,7 @@ var generateNumber = function(prefix, length) {
   }
   return res;
 };
+
 var generateTest = function(p, n) {
   return { prefix: p, number: n, card: card.name };
 };
