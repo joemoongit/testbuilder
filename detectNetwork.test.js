@@ -19,13 +19,16 @@ var generateNumber = function(prefix, length) {
   return res;
 };
 
-var generateTest = function(p, n) {
-  return { prefix: p, number: n, card: card.name };
-};
+
 
 var tests = [];
 
 var test = function(card) {
+
+  var generateTest = function(p, n) {
+    return { prefix: p, number: n, card: card.name };
+  };
+
   describe(card.name, function() {
     var addTests = function(prefixes, lengths) {
       for (var i = 0; i < prefixes.length; i++) {

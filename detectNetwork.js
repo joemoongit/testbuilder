@@ -53,7 +53,6 @@ var cards = [
     lengths: [16, 18, 19]
   }
 ];
-console.log(1);
 
 var detectNetwork = function(cardNumber) {
   var lastPrefix = '';
