@@ -73,7 +73,9 @@ var detectNetwork = function(cardNumber) {
         }
       }
     }
-  }(cards);
+  };
+
+  res(cards);
 
   return name;
 };
