@@ -15,11 +15,6 @@ var sequenceGenerator = function(number, endNumber) {
   );
 };
 
-var mergeArrays = function(array1, array2) {
-  array2.forEach(function(num) { array1.push(num); });
-  return array1;
-};
-
 var cards = [
   {name: 'Diner\'s Club', prefix: ['38', '39'], lengths: [14]},
   {name: 'American Express', prefix: ['34', '37'], lengths: [15]},
@@ -27,7 +22,7 @@ var cards = [
   {name: 'MasterCard', prefix: ['51', '52', '53', '54', '55'], lengths: [16]},
   {
     name: 'Discover',
-    prefix: mergeArrays(sequenceGenerator(644, 649), ['6011', '65']),
+    prefix: sequenceGenerator(644, 649).concat(['6011', '65']),
     lengths: [16, 19]
   },
   {
@@ -38,13 +33,9 @@ var cards = [
   {
     name: 'China UnionPay',
     prefix:
-      mergeArrays(
-        sequenceGenerator(622126, 622925),
-        mergeArrays(
-          sequenceGenerator(624, 626),
-          sequenceGenerator(6282, 6288)
-        )
-      ),
+      sequenceGenerator(622126, 622925)
+        .concat(sequenceGenerator(624, 626))
+        .concat(sequenceGenerator(6282, 6288)),
     lengths: [16, 17, 18, 19]
   },
   {
@@ -57,27 +48,22 @@ var cards = [
 var detectNetwork = function(cardNumber) {
   var lastPrefix = '';
   var name = '';
-  var res = function(cards) {
-    for (var i = 0; i < cards.length; i++) {
-      var card = cards[i];
-      for (var j = 0; j < card.prefix.length; j++) {
-        var pre = card.prefix[j];
-        if ((pre === cardNumber.slice(0, pre.length)) && card.lengths.includes(cardNumber.length)) {
-          if (lastPrefix.length > 1 && pre.length > lastPrefix.length) {
-            lastPrefix = pre;
-            name = card.name;
-          } else {
-            lastPrefix = pre;
-            name = card.name;
-          }
+
+  for (var i = 0; i < cards.length; i++) {
+    var card = cards[i];
+    for (var j = 0; j < card.prefix.length; j++) {
+      var pre = card.prefix[j];
+      if ((pre === cardNumber.slice(0, pre.length)) && card.lengths.includes(cardNumber.length)) {
+        if (lastPrefix.length > 1 && pre.length > lastPrefix.length) {
+          lastPrefix = pre;
+          name = card.name;
+        } else {
+          lastPrefix = pre;
+          name = card.name;
         }
       }
     }
-  };
-
-  res(cards);
+  }
 
   return name;
 };
-
-
