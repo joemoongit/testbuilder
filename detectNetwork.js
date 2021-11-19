@@ -54,13 +54,8 @@ var detectNetwork = function(cardNumber) {
     for (var j = 0; j < card.prefix.length; j++) {
       var pre = card.prefix[j];
       if ((pre === cardNumber.slice(0, pre.length)) && card.lengths.includes(cardNumber.length)) {
-        if (lastPrefix.length > 1 && pre.length > lastPrefix.length) {
-          lastPrefix = pre;
-          name = card.name;
-        } else {
-          lastPrefix = pre;
-          name = card.name;
-        }
+        lastPrefix = pre;
+        name = card.name;
       }
     }
   }
